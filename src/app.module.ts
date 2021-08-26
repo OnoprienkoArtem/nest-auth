@@ -14,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'root',
       database: 'test',
-      entities: [],
+      autoLoadEntities: true,
       synchronize: true,
     }),
   ],
