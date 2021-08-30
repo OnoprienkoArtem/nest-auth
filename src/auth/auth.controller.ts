@@ -10,6 +10,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
@@ -56,7 +57,7 @@ export class AuthController {
     return { user };
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  @UseInterceptors(ClassSerializerInterceptor, AuthInterceptor)
   @Get('user')
   async user(@Req() request: Request) {
     const cookie = request.cookies['jwt'];
