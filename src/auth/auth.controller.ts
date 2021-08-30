@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
 import { Response, Request } from 'express';
+import { User } from './models/user.interface';
 
 @Controller()
 export class AuthController {
@@ -56,7 +57,8 @@ export class AuthController {
   @Get('user')
   async user(@Req() request: Request) {
     const cookie = request.cookies['jwt'];
+    const data = await this.jwtService.verifyAsync(cookie);
 
-    return { cookie };
+    return this.authService.findOneBy({ id: data['id'] });
   }
 }
