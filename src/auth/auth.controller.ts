@@ -65,4 +65,12 @@ export class AuthController {
 
     return this.authService.findOneBy({ id: data['id'] });
   }
+
+  @UseInterceptors(ClassSerializerInterceptor, AuthInterceptor)
+  @Post('logout')
+  async logout(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('jwt');
+
+    return { message: 'Success' };
+  }
 }
