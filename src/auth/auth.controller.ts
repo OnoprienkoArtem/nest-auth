@@ -16,6 +16,7 @@ import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
 import { Response, Request } from 'express';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller()
 export class AuthController {
   constructor(
@@ -54,10 +55,10 @@ export class AuthController {
 
     response.cookie('jwt', jwt, { httpOnly: true });
 
-    return { user };
+    return user;
   }
 
-  @UseInterceptors(ClassSerializerInterceptor, AuthInterceptor)
+  @UseInterceptors(AuthInterceptor)
   @Get('user')
   async user(@Req() request: Request) {
     const cookie = request.cookies['jwt'];
@@ -66,7 +67,7 @@ export class AuthController {
     return this.authService.findOneBy({ id: data['id'] });
   }
 
-  @UseInterceptors(ClassSerializerInterceptor, AuthInterceptor)
+  @UseInterceptors(AuthInterceptor)
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt');
