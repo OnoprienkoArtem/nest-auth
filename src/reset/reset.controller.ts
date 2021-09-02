@@ -1,4 +1,10 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
-@Controller('reset')
-export class ResetController {}
+@Controller()
+export class ResetController {
+
+  @Post('forgot')
+  async forgot(@Body('email') email: string) {
+
+  }
+}
