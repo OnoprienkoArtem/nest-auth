@@ -18,4 +18,8 @@ export class AuthService {
   async findOneBy(condition): Promise<User> {
     return await this.userRepository.findOne(condition);
   }
+
+  async update(id: number, data): Promise<any> {
+    return await this.userRepository.update(id, data);
+  }
 }

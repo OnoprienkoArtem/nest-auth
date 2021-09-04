@@ -12,6 +12,10 @@ export class ResetService {
   ) {}
 
   async create(reset: Reset): Promise<Reset> {
-    return this.resetRepository.save(reset);
+    return await this.resetRepository.save(reset);
+  }
+
+  async findOne(condition): Promise<Reset> {
+    return await this.resetRepository.findOne(condition);
   }
 }
