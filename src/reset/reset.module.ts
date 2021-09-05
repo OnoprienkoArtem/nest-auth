@@ -1,6 +1,7 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '../auth/auth.module';
 import { ResetEntity } from './models/reset.entity';
 import { ResetService } from './reset.service';
 import { ResetController } from './reset.controller';
@@ -19,6 +20,7 @@ import { ResetController } from './reset.controller';
         from: 'no-replay@localhost.com',
       },
     }),
+    AuthModule,
   ],
 })
 export class ResetModule {}
