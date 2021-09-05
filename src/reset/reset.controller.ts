@@ -3,6 +3,8 @@ import {
   BadRequestException,
   Body,
   Controller,
+  forwardRef,
+  Inject,
   NotFoundException,
   Post,
 } from '@nestjs/common';
@@ -15,6 +17,7 @@ export class ResetController {
   constructor(
     private resetService: ResetService,
     private mailerService: MailerService,
+    @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
   ) {}
 
