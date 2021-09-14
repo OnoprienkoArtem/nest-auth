@@ -25,6 +25,11 @@ export class ResetController {
   async forgot(@Body('email') email: string) {
     const token = Math.random().toString(20).substr(2, 12);
     const url = `http://localhost:4200/reset/${token}`;
+    const user = await this.authService.findOneBy({ email });
+
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
 
     await this.resetService.create({ email, token });
 
